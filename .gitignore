@@ -1,0 +1,3 @@
+.vscode
+build/chip8
+*.o
