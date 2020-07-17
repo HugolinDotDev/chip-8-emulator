@@ -13,7 +13,7 @@ CHIP-8 emulator written in C with SDL2 for graphics.
 5. (Clean object files `$ make clean`)
 6. (Clean object files and executable `$ make mrproper`)
 
-## Resources
+## 📚 Resources
 
 * [CHIP-8 Design Specification](http://www.cs.columbia.edu/~sedwards/classes/2016/4840-spring/designs/Chip8.pdf) from Columbia University
 * [Multigesture website](http://www.multigesture.net/articles/how-to-write-an-emulator-chip-8-interpreter/)
