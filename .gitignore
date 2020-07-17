@@ -1,3 +1,6 @@
 .vscode
 build/chip8
 *.o
+rom/*.rom
+include/SDL2
+lib
