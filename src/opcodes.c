@@ -45,3 +45,30 @@ void exe_ld_vx_byte(Chip8* chip8)
 {
     chip8->V[(chip8->opcode >> 8) & 0x000F] = chip8->opcode & 0x00FF;
 }
+
+void exe_add_vx_byte(Chip8* chip8)
+{
+    chip8->V[(chip8->opcode >> 8) & 0x000F] += chip8->opcode & 0x00FF;
+}
+
+void exe_ld_vx_vy(Chip8* chip8)
+{
+    chip8->V[(chip8->opcode >> 8) & 0x000F] = chip8->V[(chip8->opcode >> 4) & 0x000F];
+}
+
+void exe_or_vx_vy(Chip8* chip8)
+{
+    chip8->V[(chip8->opcode >> 8) & 0x000F] |= chip8->V[(chip8->opcode >> 4) & 0x000F];
+}
+
+void exe_and_vx_vy(Chip8* chip8)
+{
+    chip8->V[(chip8->opcode >> 8) & 0x000F] &= chip8->V[(chip8->opcode >> 4) & 0x000F];
+}
+
+void exe_xor_vx_vy(Chip8* chip8)
+{
+    chip8->V[(chip8->opcode >> 8) & 0x000F] ^= chip8->V[(chip8->opcode >> 4) & 0x000F];
+}
+
+void exe

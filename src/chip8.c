@@ -75,19 +75,14 @@ void Chip8_emulate_cycle(Chip8* chip8)
         case 0x4000: exe_sne_vx_byte(chip8); break; // Skips the next instruction if VX != NN
         case 0x5000: exe_se_vx_vy(chip8); break; // Skips the next instruction if VX == VY
         case 0x6000: exe_ld_vx_byte(chip8); break;// Sets VX to NN
-        case 0x7000: // Adds NN to VX
-            break;
+        case 0x7000: exe_add_vx_byte(chip8); break; // Adds NN to VX
         case 0x8000:
             switch (chip8->opcode & 0x000F)
             {
-                case 0x0000: // Sets VX to the value of VY
-                    break;                
-                case 0x0001: // Sets VX to VX OR VY
-                    break;
-                case 0x0002: // Sets VX to VX AND VY
-                    break;
-                case 0x0003: // Sets VX to VX XOR VY
-                    break;
+                case 0x0000: exe_ld_vx_vy(chip8); break; // Sets VX to the value of VY
+                case 0x0001: exe_or_vx_vy(chip8); break; // Sets VX to VX OR VY
+                case 0x0002: exe_and_vx_vy(chip8); break; // Sets VX to VX AND VY
+                case 0x0003: exe_xor_vx_vy(chip8); break; // Sets VX to VX XOR VY
                 case 0x0004: // Adds VY to VX. VF is set to 1 when there's a carry, and to 0 when there isn't
                     break;
                 case 0x0005: // VY is subtracted from VX. VF is set to 0 when there's a borrow, and 1 when there isn't
