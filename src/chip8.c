@@ -83,50 +83,33 @@ void Chip8_emulate_cycle(Chip8* chip8)
                 case 0x0001: exe_or_vx_vy(chip8); break; // Sets VX to VX OR VY
                 case 0x0002: exe_and_vx_vy(chip8); break; // Sets VX to VX AND VY
                 case 0x0003: exe_xor_vx_vy(chip8); break; // Sets VX to VX XOR VY
-                case 0x0004: // Adds VY to VX. VF is set to 1 when there's a carry, and to 0 when there isn't
-                    break;
-                case 0x0005: // VY is subtracted from VX. VF is set to 0 when there's a borrow, and 1 when there isn't
-                    break;
-                case 0x0006: // VY is subtracted from VX. VF is set to 0 when there's a borrow, and 1 when there isn't
-                    break;
-                case 0x0007: // Sets VX to VY minus VX. VF is set to 0 when there's a borrow, and 1 when there isn't
-                    break;
-                case 0x000E: // Stores the most significant bit of VX in VF and then shifts VX to the left by 1
-                    break;                                                                                                    
+                case 0x0004: exe_add_vx_vy(chip8); break; // Adds VY to VX. VF is set to 1 when there's a carry, and to 0 when there isn't
+                case 0x0005: exe_sub_vx_vy(chip8); break; // VY is subtracted from VX. VF is set to 0 when there's a borrow, and 1 when there isn't
+                case 0x0006: exe_shr_vx_vy(chip8); break; // VY is subtracted from VX. VF is set to 0 when there's a borrow, and 1 when there isn't
+                case 0x0007: exe_subn_vx_vy(chip8); break; // Sets VX to VY minus VX. VF is set to 0 when there's a borrow, and 1 when there isn't
+                case 0x000E: exe_shl_vx_vy(chip8); break; // Stores the most significant bit of VX in VF and then shifts VX to the left by 1
             }
             break;
-        case 0x9000: // Skips the next instruction if VX != VY
-            break;
-        case 0xA000: // Sets I to the address NNN
-            break;
-        case 0xB000: // Jumps to the address NNN plus V0
-            break;
-        case 0xC000: // Sets VX to the result of a bitwise and operation on a random number (Typically: 0 to 255) and NN
-            break;
-        case 0xD000:// Draws a sprite at coordinate (VX, VY) that has a width of 8 pixels and a height of N pixels
-            break;
+        case 0x9000: exe_sne_vx_vy(chip8); break; // Skips the next instruction if VX != VY
+        case 0xA000: exe_ld_i_addr(chip8); break; // Sets I to the address NNN
+        case 0xB000: exe_jp_v0_addr(chip8); break; // Jumps to the address NNN plus V0
+        case 0xC000: exe_rnd_vx_byte(chip8); break; // Sets VX to the result of a bitwise and operation on a random number (Typically: 0 to 255) and NN
+        case 0xD000: exe_drw_vx_vy_nibble(chip8); break; // Draws a sprite at coordinate (VX, VY) that has a width of 8 pixels and a height of N pixels
         case 0xE000:
             switch (chip8->opcode & 0x00FF)
                 {
-                case 0x009E: // Skips the next instruction if the key stored in VX is pressed
-                    break;
-                case 0x00A1: // Skips the next instruction if the key stored in VX isn't pressed
-                    break;
+                case 0x009E: exe_skp_vx(chip8); break; // Skips the next instruction if the key stored in VX is pressed
+                case 0x00A1: exe_sknp_vx(chip8); break; // Skips the next instruction if the key stored in VX isn't pressed
             }
             break;
         case 0xF000:
             switch (chip8->opcode & 0x00FF)
             {
-                case 0x0007: // Sets VX to the value of the delay timer
-                    break;
-                case 0x000A: // A key press is awaited, and then stored in VX
-                    break;
-                case 0x0015: // Sets the delay timer to VX
-                    break;
-                case 0x0018: // Sets the sound timer to VX
-                    break;
-                case 0x001E: // Adds VX to I. VF is not affected
-                    break;
+                case 0x0007: exe_ld_vx_dt(chip8); break;// Sets VX to the value of the delay timer
+                case 0x000A: exe_ld_vx_k(chip8); break; // A key press is awaited, and then stored in VX
+                case 0x0015: exe_ld_dt_vx(chip8); break; // Sets the delay timer to VX
+                case 0x0018: exe_ld_st_vx(chip8); break; // Sets the sound timer to VX
+                case 0x001E: exe_add_i_vx(chip8); break; // Adds VX to I. VF is not affected
                 case 0x0029: // Sets I to the location of the sprite for the character in VX. Characters 0-F (in hexadecimal) are represented by a 4x5 font
                     break;
                 case 0x0033:
