@@ -37,6 +37,7 @@ int main(int argc, char* argv[])
         printf("Usage: chip8 <rom_path>\n");
         return 1;
     }
+    srand(time(NULL));
     initialize_SDL();
     Chip8* chip8 = Chip8_factory();
     Chip8_loadROM(chip8, argv[1]);
